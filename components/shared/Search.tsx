@@ -6,7 +6,7 @@ import { Input } from '../ui/input';
 import { StringUtils, formUrlQuery, removeKeysFromQuery } from '@/lib/utils';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-const Search = ({ placeholder = 'Search title...' }: { placeholder?: string }) => {
+const Search = ({ placeholder = 'Search title...', buyer = false }: { placeholder?: string, buyer?: boolean }) => {
   const [query, setQuery] = useState('');
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -14,23 +14,25 @@ const Search = ({ placeholder = 'Search title...' }: { placeholder?: string }) =
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       let newUrl = '';
-
-      // if(query) {
-      //   newUrl = formUrlQuery({
-      //     params: searchParams.toString(),
-      //     key: 'query',
-      //     value: query
-      //   })
-      // } else {
-      //   newUrl = removeKeysFromQuery({
-      //     params: searchParams.toString(),
-      //     keysToRemove: ['query']
-      //   })
-      // }
-      const myurl = process.env.NEXT_PUBLIC_SERVER_URL ?? 'https://ems-beta-six.vercel.app/'
-      if (query.length > 1) {
-        newUrl = myurl + '?query=' + query
-        router.push(newUrl, { scroll: false });
+      if (buyer) {
+        if (query) {
+          newUrl = formUrlQuery({
+            params: searchParams.toString(),
+            key: 'query',
+            value: query
+          })
+        } else {
+          newUrl = removeKeysFromQuery({
+            params: searchParams.toString(),
+            keysToRemove: ['query']
+          })
+        }
+      } else {
+        const myurl = process.env.NEXT_PUBLIC_SERVER_URL ?? 'https://ems-beta-six.vercel.app/'
+        if (query.length > 1) {
+          newUrl = myurl + '?query=' + query
+          router.push(newUrl, { scroll: false });
+        }
       }
     }, 300)
 
