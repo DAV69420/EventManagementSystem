@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react'
 import { Input } from '../ui/input';
-import { formUrlQuery, removeKeysFromQuery } from '@/lib/utils';
+import { StringUtils, formUrlQuery, removeKeysFromQuery } from '@/lib/utils';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 const Search = ({ placeholder = 'Search title...' }: { placeholder?: string }) => {
@@ -15,33 +15,43 @@ const Search = ({ placeholder = 'Search title...' }: { placeholder?: string }) =
     const delayDebounceFn = setTimeout(() => {
       let newUrl = '';
 
-      if(query) {
-        newUrl = formUrlQuery({
-          params: searchParams.toString(),
-          key: 'query',
-          value: query
-        })
-      } else {
-        newUrl = removeKeysFromQuery({
-          params: searchParams.toString(),
-          keysToRemove: ['query']
-        })
+      // if(query) {
+      //   newUrl = formUrlQuery({
+      //     params: searchParams.toString(),
+      //     key: 'query',
+      //     value: query
+      //   })
+      // } else {
+      //   newUrl = removeKeysFromQuery({
+      //     params: searchParams.toString(),
+      //     keysToRemove: ['query']
+      //   })
+      // }
+      const myurl = process.env.NEXT_PUBLIC_SERVER_URL ?? 'https://ems-beta-six.vercel.app/'
+      if (query.length > 1) {
+        newUrl = myurl + '?query=' + query
+        router.push(newUrl, { scroll: false });
       }
-
-      router.push(newUrl, { scroll: false });
     }, 300)
 
     return () => clearTimeout(delayDebounceFn);
-  }, [query, searchParams, router])
+
+  }, [query, router])
 
   return (
-    <div className="flex-center min-h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-      <Image src="/assets/icons/search.svg" alt="search" width={24} height={24} />
-      <Input 
-        type="text"
+    <div className="flex-center w-full overflow-hidden rounded-full bg-grey-50 px-4 py-1">
+      <Image src="/assets/icons/search.svg" alt="search" width={20} height={20} />
+      <Input
+        type="search"
         placeholder={placeholder}
-        onChange={(e) => setQuery(e.target.value)}
-        className="p-regular-16 border-0 bg-grey-50 outline-offset-0 placeholder:text-grey-500 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+        // onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => {
+          if (StringUtils.isAlphabetic(e.target.value)) {
+            setQuery(e.target.value);
+          }
+        }}
+        pattern='[A-Za-z0-9 ]*'
+        className="p-regular-14 border-0 bg-transparent outline-offset-0 placeholder:text-grey-500 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0 p-0 ps-2 h-9"
       />
     </div>
   )

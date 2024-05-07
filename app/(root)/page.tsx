@@ -1,5 +1,6 @@
 import CategoryFilter from '@/components/shared/CategoryFilter';
-import Collection from '@/components/shared/Collection'
+import CategoryTags from '@/components/shared/CategoryTags';
+import { Collection } from '@/components/shared/Collection';
 import Search from '@/components/shared/Search';
 import { Button } from '@/components/ui/button'
 import { getAllEvents } from '@/lib/actions/event.actions';
@@ -16,47 +17,36 @@ export default async function Home({ searchParams }: SearchParamProps) {
     query: searchText,
     category,
     page,
-    limit: 6
+    limit: 12
   })
 
   return (
     <>
-      <section className="bg-primary-50 bg-dotted-pattern bg-contain py-5 md:py-10">
-        <div className="wrapper grid grid-cols-1 gap-5 md:grid-cols-2 2xl:gap-0">
-          <div className="flex flex-col justify-center gap-8">
-            <h1 className="h1-bold">Host, Connect, Celebrate: Your Events, Our Platform!</h1>
-            <p className="p-regular-20 md:p-regular-24">Book and learn helpful tips from 3,168+ mentors in world-class companies with our global community.</p>
-            <Button size="lg" asChild className="button w-full sm:w-fit">
-              <Link href="#events">
-                Explore Now
-              </Link>
-            </Button>
-          </div>
+      <div className='w-[80%] md:w-[750px] mx-auto mt-3 bg-neutral-100 text-neutral-800 px-4 py-3 rounded-sm'>
+        {/* Tag Line here */}
+        <p className='text-xs md:text-center'>
+          Welcome to MeetHub where events and attendees unite for an
+          <span title="You will have a thrilling and seamless experience of the entire process" className='font-semibold text-primary-500 cursor-help'>
+            &nbsp;unforgettable&nbsp;
+          </span>
+          experience!
+        </p>
+      </div>
 
-          <Image 
-            src="/assets/images/hero.png"
-            alt="hero"
-            width={1000}
-            height={1000}
-            className="max-h-[70vh] object-contain object-center 2xl:max-h-[50vh]"
-          />
-        </div>
-      </section> 
+      <section id="events" className="w-[80%] mx-auto mb-12 mt-4 flex flex-col gap-8">
 
-      <section id="events" className="wrapper my-8 flex flex-col gap-8 md:gap-12">
-        <h2 className="h2-bold">Trust by <br /> Thousands of Events</h2>
-
-        <div className="flex w-full flex-col gap-5 md:flex-row">
-          <Search />
-          <CategoryFilter />
+        <div className="flex w-full flex-col gap-5">
+          {/* <CategoryFilter /> */}
+          <p className='text-sm flex font-bold justify-start items-center'>Latest Events from India &nbsp;<Image src={'/assets/images/IND.webp'} alt={'IND'} width={48} height={48} className='rounded-full object-cover w-4 h-4' /></p>
+          <CategoryTags />
         </div>
 
-        <Collection 
+        <Collection
           data={events?.data}
           emptyTitle="No Events Found"
-          emptyStateSubtext="Come back later"
+          emptyStateSubtext=""
           collectionType="All_Events"
-          limit={6}
+          limit={12}
           page={page}
           totalPages={events?.totalPages}
         />

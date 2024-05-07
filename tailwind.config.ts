@@ -18,11 +18,16 @@ module.exports = withUt({
       },
     },
     extend: {
+      fontSize: {
+        xxss: '0.625rem',
+        xss: '0.688rem',
+      },
       colors: {
         primary: {
-          500: '#624CF5',
-          50: ' #F6F8FD',
-          DEFAULT: '#624CF5',
+          500: '#7A25E7',
+          100: '#f7f0ff',
+          50: '#FBF9FF',
+          DEFAULT: '#7A25E7',
           foreground: 'hsl(var(--primary-foreground))',
         },
         coral: {

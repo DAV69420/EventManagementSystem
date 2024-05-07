@@ -218,7 +218,7 @@ body {
   }
 
   .button {
-    @apply rounded-full h-[54px] p-regular-16;
+    @apply rounded-sm h-[54px] p-regular-16;
   }
 
   .select-item {
@@ -250,7 +250,7 @@ body {
 .cl-formButtonPrimary:hover,
 .cl-formButtonPrimary:focus,
 .cl-formButtonPrimary:active {
-  background-color: #705CF7
+  background-color: #7a25e7
 }
 
 /* ========================================== REACT-DATEPICKER STYLES */
@@ -266,12 +266,40 @@ body {
 }
 
 .react-datepicker__day--selected {
-  background-color: #624cf5 !important;
+  background-color: #7a25e7 !important;
   color: #ffffff !important;
   border-radius: 4px;
 }
 
 .react-datepicker__time-list-item--selected {
-  background-color: #624cf5 !important;
+  background-color: #7a25e7 !important;
 }
 
+.noscrollbar::-webkit-scrollbar{
+  width: 0;
+  height: 0;
+}
+
+.btntags{
+  @apply rounded-full h-0 py-4;
+}
+
+.btntags.tagactive{
+  @apply bg-primary-100;
+}
+
+.scrollvisible{
+  @apply relative;
+}
+.scrollvisible::after{
+  content: '';
+  @apply absolute right-0 top-0 bottom-0 h-full w-4;
+  background: linear-gradient(to right, #ffffff00, #fff);
+}
+.scrollvisible div:last-child{
+  @apply pe-2;
+}
+
+.navShadow {
+  box-shadow: 0 -4px 40px -8px #00000020;
+}

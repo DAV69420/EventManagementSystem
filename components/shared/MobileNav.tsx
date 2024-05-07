@@ -14,7 +14,7 @@ import NavItems from "./NavItems"
 const MobileNav = () => {
   return (
     <nav className="md:hidden">
-      <Sheet>
+      <Sheet >
         <SheetTrigger className="align-middle">
           <Image 
             src="/assets/icons/menu.svg"
@@ -24,7 +24,7 @@ const MobileNav = () => {
             className="cursor-pointer"
           />
         </SheetTrigger>
-        <SheetContent className="flex flex-col gap-6 bg-white md:hidden">
+        <SheetContent side={'bottom'} className="flex flex-col gap-6 bg-white md:hidden">
           <Image 
             src="/assets/images/logo.svg"
             alt="logo"
